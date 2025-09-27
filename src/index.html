@@ -1,17 +1,439 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delos Cyber - Security Without Compromise</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #2c2c2c;
+            background: #0a0a0a;
+        }
+
+        .top-bar {
+            height: 4px;
+            background: linear-gradient(90deg, #5a9a9a 0%, #5a9a9a 40%, #3a6a6a 40%, #3a6a6a 70%, #2c2c2c 70%);
+        }
+
+        .header {
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(90, 154, 154, 0.2);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .logo-main {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+        }
+
+        .logo-main span {
+            color: #5a9a9a;
+        }
+
+        .logo-tagline {
+            color: #888;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav {
+            display: flex;
+            gap: 3rem;
+        }
+
+        .nav a {
+            color: #ccc;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #5a9a9a;
+            transition: width 0.3s;
+        }
+
+        .nav a:hover {
+            color: #5a9a9a;
+        }
+
+        .nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(90, 154, 154, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(90, 154, 154, 0.08) 0%, transparent 50%),
+                #0a0a0a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 900px;
+            padding: 0 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            color: white;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        .hero h1 span {
+            color: #5a9a9a;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: #aaa;
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: #5a9a9a;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #478080;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(90, 154, 154, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #5a9a9a;
+            border: 2px solid #5a9a9a;
+        }
+
+        .btn-secondary:hover {
+            background: #5a9a9a;
+            color: white;
+        }
+
+        .services {
+            padding: 6rem 5%;
+            background: #111;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: #888;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: rgba(90, 154, 154, 0.05);
+            border: 1px solid rgba(90, 154, 154, 0.2);
+            padding: 2.5rem;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            background: rgba(90, 154, 154, 0.1);
+            border-color: #5a9a9a;
+            transform: translateY(-5px);
+        }
+
+        .service-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(90, 154, 154, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #5a9a9a;
+        }
+
+        .service-card h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-card p {
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        .about {
+            padding: 6rem 5%;
+            background: #0a0a0a;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            color: #aaa;
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(90, 154, 154, 0.05);
+            border: 1px solid rgba(90, 154, 154, 0.2);
+            border-radius: 8px;
+        }
+
+        .stat-box h3 {
+            font-size: 3rem;
+            color: #5a9a9a;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box p {
+            color: #aaa;
+            font-size: 0.95rem;
+        }
+
+        .footer {
+            background: #111;
+            padding: 3rem 5%;
+            border-top: 1px solid rgba(90, 154, 154, 0.2);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .footer p {
+            color: #888;
+            margin-bottom: 0.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .nav {
+                display: none;
+            }
+        }
+    </style>
 </head>
-
 <body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
-</body>
+    <div class="top-bar"></div>
+    
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-main"><span>D</span>ELOS CYBER</div>
+                <div class="logo-tagline">Security Without Compromise</div>
+            </div>
+            <nav class="nav">
+                <a href="#services">Services</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
 
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Secure Your Digital <span>Future</span></h1>
+            <p>Advanced penetration testing and security assessment services designed to protect your organization from evolving cyber threats</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary">Get Started</button>
+                <a href="#services" class="btn btn-secondary">Our Services</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>What We Do</h2>
+                <p>Comprehensive security solutions tailored to your needs</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🔒</div>
+                    <h3>Penetration Testing</h3>
+                    <p>Identify vulnerabilities before attackers do with our comprehensive penetration testing services across network, web, and mobile platforms.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🎯</div>
+                    <h3>Red Team Operations</h3>
+                    <p>Simulate sophisticated attacks to test your security defenses and incident response capabilities in real-world scenarios.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🛡️</div>
+                    <h3>Security Audits</h3>
+                    <p>Comprehensive security assessments and compliance audits to ensure your organization meets industry standards and regulations.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💡</div>
+                    <h3>Security Consulting</h3>
+                    <p>Strategic guidance and expert advice to build and maintain a robust security posture for your organization.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <h3>Threat Intelligence</h3>
+                    <p>Stay ahead of emerging threats with our threat intelligence services and proactive security monitoring solutions.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📊</div>
+                    <h3>Risk Assessment</h3>
+                    <p>Comprehensive risk analysis and management strategies to prioritize security investments and reduce organizational risk.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>Trusted Security Partners</h2>
+                    <p>Delos Cyber is a leading cybersecurity firm specializing in penetration testing and security assessments. Our team of certified professionals brings decades of combined experience to protect organizations worldwide.</p>
+                    <p>We combine cutting-edge techniques with industry best practices to deliver comprehensive security solutions that give you peace of mind.</p>
+                    <button class="btn btn-primary">Learn More</button>
+                </div>
+                <div class="stats">
+                    <div class="stat-box">
+                        <h3>500+</h3>
+                        <p>Security Assessments</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>98%</h3>
+                        <p>Client Satisfaction</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>24/7</h3>
+                        <p>Support Available</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>15+</h3>
+                        <p>Years Experience</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact" class="footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Delos Cyber. All rights reserved.</p>
+            <p>info@deloscyber.com | +44 (0) 20 1234 5678</p>
+        </div>
+    </footer>
+</body>
 </html>
