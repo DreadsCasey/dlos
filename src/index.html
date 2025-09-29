@@ -137,10 +137,51 @@
             line-height: 1.8;
         }
 
-        .hero-buttons {
+        .scroll-indicator {
             display: flex;
-            gap: 1.5rem;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-arrow {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #5a9a9a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
             justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .scroll-arrow::after {
+            content: '↓';
+            font-size: 1.5rem;
+            color: #5a9a9a;
+        }
+
+        .scroll-indicator:hover .scroll-arrow {
+            background: #5a9a9a;
+            transform: translateY(5px);
+        }
+
+        .scroll-indicator:hover .scroll-arrow::after {
+            color: white;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
         }
 
         .btn {
@@ -164,17 +205,6 @@
             background: #478080;
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(90, 154, 154, 0.3);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: #5a9a9a;
-            border: 2px solid #5a9a9a;
-        }
-
-        .btn-secondary:hover {
-            background: #5a9a9a;
-            color: white;
         }
 
         .services {
@@ -250,6 +280,56 @@
         .about {
             padding: 6rem 5%;
             background: #0a0a0a;
+        }
+
+        .contact {
+            padding: 6rem 5%;
+            background: #111;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: rgba(90, 154, 154, 0.05);
+            border: 1px solid rgba(90, 154, 154, 0.2);
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            background: rgba(90, 154, 154, 0.1);
+            border-color: #5a9a9a;
+            transform: translateY(-5px);
+        }
+
+        .contact-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-card h3 {
+            color: white;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .contact-card p {
+            color: #aaa;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p:first-of-type {
+            color: #5a9a9a;
+            font-weight: 600;
         }
 
         .about-content {
@@ -350,9 +430,8 @@
         <div class="hero-content">
             <h1>Secure Your Digital <span>Future</span></h1>
             <p>Advanced penetration testing and security assessment services designed to protect your organization from evolving cyber threats</p>
-            <div class="hero-buttons">
-                <button class="btn btn-primary">Get Started</button>
-                <a href="#services" class="btn btn-secondary">Our Services</a>
+            <div class="scroll-indicator" onclick="document.getElementById('services').scrollIntoView({behavior: 'smooth'})">
+                <div class="scroll-arrow"></div>
             </div>
         </div>
     </section>
@@ -429,10 +508,38 @@
         </div>
     </section>
 
-    <footer id="contact" class="footer">
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Ready to secure your organization? Contact us today</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">📧</div>
+                    <h3>Email</h3>
+                    <p>info@deloscyber.com</p>
+                    <p>sales@deloscyber.com</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📞</div>
+                    <h3>Phone</h3>
+                    <p>+44 (0) 20 1234 5678</p>
+                    <p>Mon-Fri, 9:00-18:00 GMT</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">📍</div>
+                    <h3>Location</h3>
+                    <p>London, United Kingdom</p>
+                    <p>Serving clients worldwide</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
         <div class="footer-content">
             <p>&copy; 2025 Delos Cyber. All rights reserved.</p>
-            <p>info@deloscyber.com | +44 (0) 20 1234 5678</p>
         </div>
     </footer>
 </body>
